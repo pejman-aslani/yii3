@@ -6,6 +6,25 @@
         "yii3",
         "app"
     ],
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/yiisoft/app/issues?state=open",
+        "source": "https://github.com/yiisoft/app",
+        "forum": "https://www.yiiframework.com/forum/",
+        "wiki": "https://www.yiiframework.com/wiki/",
+        "irc": "ircs://irc.libera.chat:6697/yii",
+        "chat": "https://t.me/yii3en"
+    },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/yiisoft"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/yiisoft"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
@@ -43,8 +62,6 @@
         "yiisoft/config": "^1.1",
         "yiisoft/csrf": "^2.0",
         "yiisoft/data-response": "^2.0",
-        "yiisoft/db-migration": "^1.1",
-        "yiisoft/db-mysql": "^1.2",
         "yiisoft/definitions": "^3.0",
         "yiisoft/di": "^1.2",
         "yiisoft/error-handler": "^3.0",
@@ -53,13 +70,13 @@
         "yiisoft/html": "^3.0",
         "yiisoft/http": "^1.2",
         "yiisoft/i18n": "^1.1",
-        "yiisoft/log": "^2.0",
+        "yiisoft/log": "^2.1",
         "yiisoft/log-target-file": "^3.0",
         "yiisoft/router": "^3.0",
         "yiisoft/router-fastroute": "^3.0",
         "yiisoft/translator": "^3.0",
         "yiisoft/translator-message-php": "^1.1",
-        "yiisoft/view": "^8.0",
+        "yiisoft/view": "^12.0",
         "yiisoft/yii-console": "^2.0",
         "yiisoft/yii-debug": "dev-master|dev-php80",
         "yiisoft/yii-event": "^2.0",
@@ -67,7 +84,7 @@
         "yiisoft/yii-middleware": "^1.0",
         "yiisoft/yii-runner-console": "^2.0",
         "yiisoft/yii-runner-http": "^2.0",
-        "yiisoft/yii-view": "^6.0"
+        "yiisoft/yii-view-renderer": "^7.1"
     },
     "require-dev": {
         "codeception/c3": "^2.7",
@@ -75,15 +92,16 @@
         "codeception/module-asserts": "^3.0",
         "codeception/module-cli": "^2.0",
         "codeception/module-phpbrowser": "^3.0",
+        "maglnet/composer-require-checker": "^4.5",
         "phpunit/phpunit": "^9.5",
-        "rector/rector": "^1.0.0",
+        "rector/rector": "^2.0.3",
         "roave/infection-static-analysis-plugin": "^1.34",
         "roave/security-advisories": "dev-master",
         "spatie/phpunit-watcher": "^1.23",
         "vimeo/psalm": "^5.20",
         "yiisoft/yii-debug-api": "3.0.x-dev",
         "yiisoft/yii-debug-viewer": "^3.0@dev",
-        "yiisoft/yii-gii": "^3.0@dev",
+        "yiisoft/yii-gii": "dev-master",
         "yiisoft/yii-testing": "dev-master"
     },
     "autoload": {

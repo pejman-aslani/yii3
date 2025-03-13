@@ -5,9 +5,12 @@ declare(strict_types=1);
 use App\ViewInjection\CommonViewInjection;
 use App\ViewInjection\LayoutViewInjection;
 use App\ViewInjection\TranslatorViewInjection;
-use Yiisoft\Db\Mysql\Dsn;
+use Yiisoft\Assets\AssetManager;
 use Yiisoft\Definitions\Reference;
-use Yiisoft\Yii\View\CsrfViewInjection;
+use Yiisoft\Router\CurrentRoute;
+use Yiisoft\Router\UrlGeneratorInterface;
+use Yiisoft\Translator\TranslatorInterface;
+use Yiisoft\Yii\View\Renderer\CsrfViewInjection;
 
 return [
     'app' => [
@@ -19,23 +22,26 @@ return [
     'yiisoft/aliases' => [
         'aliases' => require __DIR__ . '/aliases.php',
     ],
-    'yiisoft/db-mysql' => [
-        'dsn' => (new Dsn('mysql', '127.0.0.1', 'yii3', '3306', ['charset' => 'utf8mb4']))->asString(),
-        'username' => 'root',
-        'password' => '123',
-    ],
 
-    'yiisoft/db-migration' => [
-        'newMigrationNamespace' => 'App\\Migration',
-        'sourceNamespaces' => ['App\\Migration'],
-    ],
     'yiisoft/translator' => [
         'locale' => 'en',
         'fallbackLocale' => 'en',
         'defaultCategory' => 'app',
     ],
 
-    'yiisoft/yii-view' => [
+    'yiisoft/view' => [
+        'basePath' => '@views',
+        'parameters' => [
+            'assetManager' => Reference::to(AssetManager::class),
+            'urlGenerator' => Reference::to(UrlGeneratorInterface::class),
+            'currentRoute' => Reference::to(CurrentRoute::class),
+            'translator' => Reference::to(TranslatorInterface::class),
+        ],
+    ],
+
+    'yiisoft/yii-view-renderer' => [
+        'viewPath' => '@views',
+        'layout' => '@layout/main.php',
         'injections' => [
             Reference::to(CommonViewInjection::class),
             Reference::to(CsrfViewInjection::class),

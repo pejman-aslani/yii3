@@ -1,19 +1,20 @@
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://yiisoft.github.io/docs/images/yii_logo.svg" height="100px">
+        <img src="https://yiisoft.github.io/docs/images/yii_logo.svg" height="100px" alt="Yii">
     </a>
-    <h1 align="center">Yii application template</h1>
-    <h3 align="center">Yii application template for Yii 3 is best for rapidly creating projects.</h3>
+    <h1 align="center">Yii Application Template</h1>
+    <h3 align="center">Application template for Yii 3 is best for rapidly creating projects</h3>
     <br>
 </p>
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/app/v/stable.png)](https://packagist.org/packages/yiisoft/app)
-[![Total Downloads](https://poser.pugx.org/yiisoft/app/downloads.png)](https://packagist.org/packages/yiisoft/app)
-[![build](https://github.com/yiisoft/app/workflows/build/badge.svg)](https://github.com/yiisoft/app/actions)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yiisoft/app/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/yiisoft/app/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/yiisoft/app/v)](https://packagist.org/packages/yiisoft/app)
+[![Total Downloads](https://poser.pugx.org/yiisoft/app/downloads)](https://packagist.org/packages/yiisoft/app)
+[![Build status](https://github.com/yiisoft/app/actions/workflows/build.yml/badge.svg)](https://github.com/yiisoft/app/actions/workflows/build.yml)
 [![Code Coverage](https://codecov.io/gh/yiisoft/app/branch/master/graph/badge.svg?token=TDZ2bErTcN)](https://codecov.io/gh/yiisoft/app)
 [![static analysis](https://github.com/yiisoft/app/workflows/static%20analysis/badge.svg)](https://github.com/yiisoft/app/actions?query=workflow%3A%22static+analysis%22)
 [![type-coverage](https://shepherd.dev/github/yiisoft/app/coverage.svg)](https://shepherd.dev/github/yiisoft/app)
+
+Web application template for Yii 3.
 
 <p align="center">
     <a href="https://github.com/yiisoft/app" target="_blank">
@@ -23,29 +24,51 @@
 
 ## Requirements
 
-The minimum requirement by this project template that your Web server supports PHP 8.0.
+- PHP 8.1 or higher.
 
-## Installation
-
-You'll need at least PHP 8.0.
+## Local installation
 
 If you do not have [Composer](https://getcomposer.org/), you may install it by following the instructions
 at [getcomposer.org](https://getcomposer.org/doc/00-intro.md).
 
-You can then install this project template using the following command:
+Create a project:
+
+```shell
+composer create-project --stability=dev yiisoft/app myproject
+cd myproject
+```
+
+To run the app:
 
 ```
-composer create-project --prefer-dist --stability=dev yiisoft/app <your project>
-```
-
-In order to launch development web server run:
-
-```
-composer run serve
+./yii serve
 ```
 
 Now you should be able to access the application through the URL printed to console.
 Usually it is `http://localhost:8080`.
+
+## Installation with Docker
+
+Fork the repository, clone it, then:
+
+```shell
+cd myproject
+make composer update
+```
+
+To run the app:
+
+```shell
+make up
+```
+
+To stop the app:
+
+```shell
+make down
+```
+
+The application is available at `https://localhost`.
 
 ## Directory structure
 
@@ -53,6 +76,7 @@ The application template has the following structure:
 
 ```
 config/             Configuration files.
+docker/             Docker-specific files.
 docs/               Documentation.
 public/             Files publically accessible from the Internet.
     assets/         Published assets.
@@ -60,24 +84,29 @@ public/             Files publically accessible from the Internet.
 resources/          Application resources.
     assets/         Asset bundle resources.
     layout/         Layout view templates.
-    view/           View templates.
+    messages/
+    views/          View templates.
 runtime/            Files generated during runtime.
 src/                Application source code.
     Asset/          Asset bundle definitions.
-    Controller/     Web controller classes.
     Command/        Console commands.
+    Controller/     Web controller classes.
+    EventHandler/
+    Handler/
+    ViewInjection/
 tests/              A set of Codeception tests for the application.
 vendor/             Installed Composer packages.
+Makefile            Config for make command.
 ```
 
 ## Configuration
 
-You can find configuration in `config` directory. There are multiple
-configs, and the most interesting is `params.php`. Below there are details about its sections:
+You can find configuration in `config` directory. There are multiple configs,
+and the most interesting is `common\params.php`. Below there are details about its sections:
 
 ### Application Services
 
-There are multiple pre-configured application services. 
+There are multiple pre-configured application services.
 
 #### Aliases
 
@@ -129,7 +158,7 @@ use Psr\Log\LogLevel;
         ],
     ],
     'file-rotator' => [
-        // maximum file size, in kilo-bytes. Defaults to 10240, meaning 10MB.
+        // maximum file size, in kilobytes. Defaults to 10240, meaning 10MB.
         'maxfilesize' => 10,
         // number of files used for rotation. Defaults to 5.
         'maxfiles' => 5,
@@ -198,14 +227,24 @@ See ["Logging"](https://github.com/yiisoft/docs/blob/master/guide/en/runtime/log
 ## Testing
 
 The template comes with ready to use [Codeception](https://codeception.com/) configuration.
-In order to execute tests run:
+To execute tests, in local installation run:
 
-```
-composer run serve > ./runtime/yii.log 2>&1 &
-vendor/bin/codecept run
+```shell
+./vendor/bin/codecept build
+
+./yii serve > ./runtime/yii.log 2>&1 &
+./vendor/bin/codecept run
 ```
 
-### Static analysis
+For Docker:
+
+```shell
+make codecept build
+
+make codecept run
+```
+
+## Static analysis
 
 The code is statically analyzed with [Psalm](https://psalm.dev/). To run static analysis:
 
@@ -213,17 +252,16 @@ The code is statically analyzed with [Psalm](https://psalm.dev/). To run static 
 ./vendor/bin/psalm
 ```
 
-### Support the project
+or, using Docker:
 
-[![Open Collective](https://img.shields.io/badge/Open%20Collective-sponsor-7eadf1?logo=open%20collective&logoColor=7eadf1&labelColor=555555)](https://opencollective.com/yiisoft)
+```shell
+make psalm
+```
 
-### Follow updates
+## Support
 
-[![Official website](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](https://www.yiiframework.com/)
-[![Twitter](https://img.shields.io/badge/twitter-follow-1DA1F2?logo=twitter&logoColor=1DA1F2&labelColor=555555?style=flat)](https://twitter.com/yiiframework)
-[![Telegram](https://img.shields.io/badge/telegram-join-1DA1F2?style=flat&logo=telegram)](https://t.me/yii3en)
-[![Facebook](https://img.shields.io/badge/facebook-join-1DA1F2?style=flat&logo=facebook&logoColor=ffffff)](https://www.facebook.com/groups/yiitalk)
-[![Slack](https://img.shields.io/badge/slack-join-1DA1F2?style=flat&logo=slack)](https://yiiframework.com/go/slack)
+If you need help or have a question, the [Yii Forum](https://forum.yiiframework.com/c/yii-3-0/63) is a good place for that.
+You may also check out other [Yii Community Resources](https://www.yiiframework.com/community).
 
 ## License
 
@@ -231,3 +269,15 @@ The Yii application template is free software. It is released under the terms of
 Please see [`LICENSE`](./LICENSE.md) for more information.
 
 Maintained by [Yii Software](https://www.yiiframework.com/).
+
+## Support the project
+
+[![Open Collective](https://img.shields.io/badge/Open%20Collective-sponsor-7eadf1?logo=open%20collective&logoColor=7eadf1&labelColor=555555)](https://opencollective.com/yiisoft)
+
+## Follow updates
+
+[![Official website](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](https://www.yiiframework.com/)
+[![Twitter](https://img.shields.io/badge/twitter-follow-1DA1F2?logo=twitter&logoColor=1DA1F2&labelColor=555555?style=flat)](https://twitter.com/yiiframework)
+[![Telegram](https://img.shields.io/badge/telegram-join-1DA1F2?style=flat&logo=telegram)](https://t.me/yii3en)
+[![Facebook](https://img.shields.io/badge/facebook-join-1DA1F2?style=flat&logo=facebook&logoColor=ffffff)](https://www.facebook.com/groups/yiitalk)
+[![Slack](https://img.shields.io/badge/slack-join-1DA1F2?style=flat&logo=slack)](https://yiiframework.com/go/slack)
